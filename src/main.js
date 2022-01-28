@@ -1,4 +1,5 @@
 const basePath = process.cwd();
+let spawn = require('child_process').spawn;
 const { NETWORK } = require(`${basePath}/constants/network.js`);
 const fs = require("fs");
 const sha1 = require(`${basePath}/node_modules/sha1`);
@@ -107,12 +108,46 @@ const layersSetup = (layersOrder) => {
   return layers;
 };
 
+
+
 const saveImage = (_editionCount) => {
   fs.writeFileSync(
-    `${buildDir}/images/${_editionCount}.png`,
-    canvas.toBuffer("image/png")
+    `${buildDir}/images/${_editionCount}.gif`,
+     canvas.toBuffer("image/png")
+    // this should be the new gif image created
+    /// needs to be a buffered data of the new gif file
   );
 };
+
+function argsForLayer(_renderObject) {
+  let args = [`${_renderObject.layer.selectedElement.path}`,
+    '-coalesce',
+    'null:',
+    '(',
+    './layers/Objects/alien_red#10.gif',
+    '-coalesce', ')',
+    '-layers',
+    'Composite',
+    'newgif.gif'];
+    let child = spawn('convert', args);
+
+    child.stdout.on('data', function(data) {
+      console.log('stdout: ' + data);
+      //Here is where the output goes
+    });
+
+    child.stderr.on('data', function(data) {
+      console.log('stderr: ' + data);
+      //Here is where the error output goes
+    });
+
+    child.on('close', function(code) {
+      console.log('closing code: ' + code);
+      //Here you can get the exit code of the script
+      process.exit();
+    });
+}
+
 
 const genColor = () => {
   let hue = Math.floor(Math.random() * 360);
@@ -201,13 +236,11 @@ const drawElement = (_renderObject, _index, _layersLen) => {
         text.yGap * (_index + 1),
         text.size
       )
-    : ctx.drawImage(
-        _renderObject.loadedImage,
-        0,
-        0,
-        format.width,
-        format.height
-      );
+    :
+
+    // Creat multiple args to feed in
+    console.log(
+        _renderObject.layer.selectedElement.path);
 
   addAttributes(_renderObject);
 };
@@ -363,7 +396,8 @@ const startCreating = async () => {
 
         await Promise.all(loadedElements).then((renderObjectArray) => {
           debugLogs ? console.log("Clearing canvas") : null;
-          ctx.clearRect(0, 0, format.width, format.height);
+            ctx.clearRect(0, 0, format.width, format.height);
+
           if (gif.export) {
             hashlipsGiffer = new HashlipsGiffer(
               canvas,
@@ -379,11 +413,15 @@ const startCreating = async () => {
             drawBackground();
           }
           renderObjectArray.forEach((renderObject, index) => {
+            // Add layer to imagemagick function
             drawElement(
               renderObject,
               index,
               layerConfigurations[layerConfigIndex].layersOrder.length
             );
+            argsForLayer(renderObject)
+
+
             if (gif.export) {
               hashlipsGiffer.add();
             }
@@ -394,6 +432,9 @@ const startCreating = async () => {
           debugLogs
             ? console.log("Editions left to create: ", abstractedIndexes)
             : null;
+            // Write child
+
+
           saveImage(abstractedIndexes[0]);
           addMetadata(newDna, abstractedIndexes[0]);
           saveMetaDataSingleFile(abstractedIndexes[0]);
