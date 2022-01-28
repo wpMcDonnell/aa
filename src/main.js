@@ -123,35 +123,25 @@ let layerOne = '';
 let layerTwo = '';
 
 function argsForLayer(_renderObject, _index) {
+
   _index == 0 ? layerOne = _renderObject.layer.selectedElement.path : null;
-  console.log(layerOne, 'line 127');
+  console.log(layerOne, 'LayerOne line 127');
   _index  == 1 ? layerTwo = _renderObject.layer.selectedElement.path : null;
-  if (_index == 0) {
-    return {
-    layerOne : layerOne
-  }
-  if (_index == 1) {
-    return {
-    layerTwo : layerTwo
-  }
-  }
-  }
+  console.log(layerTwo, 'layerTwo line 129');
+
+//   if (_index == 0) {
+//     console.log('say hey')
+//     return {
+//     layerOne : layerOne
+//   }
+// }
+//   if (_index == 1) {
+//     console.log('say ho')
+//     return {
+//     layerTwo : layerTwo
+//   }
+//   }
 };
-
-
-
-  let args = [`${layerOne}`,
-    '-coalesce',
-    'null:',
-    '(',
-    `${layerTwo}`,
-    '-coalesce', ')',
-    '-layers',
-    'Composite',
-    'newgif.gif'];
-
-
-    let child = spawn('convert', args);
 
     // child.stdout.on('data', function(data) {
     //   console.log('stdout: ' + data);
@@ -454,7 +444,21 @@ const startCreating = async () => {
             ? console.log("Editions left to create: ", abstractedIndexes)
             : null;
             // Write child
-            console.log(layerOne, layerTwo)
+            let args = [layerOne,
+              '-coalesce',
+              'null:',
+              '(',
+              layerTwo,
+              '-coalesce', ')',
+              '-layers',
+              'Composite',
+              'newgif.gif'];
+
+            console.log(args)
+
+            let child = spawn('convert', args);
+
+
             child.stdout.on('data', function(data) {
               console.log('stdout: ' + data);
               //Here is where the output goes
