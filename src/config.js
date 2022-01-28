@@ -26,7 +26,7 @@ const layerConfigurations = [
   {
     growEditionSizeTo: 1,
     layersOrder: [
-      //{ name: "Background" },
+      { name: "Background" },
       { name: "Objects" },
       //{ name: "Tops" },
     ],

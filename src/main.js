@@ -119,34 +119,55 @@ const saveImage = (_editionCount) => {
   );
 };
 
-function argsForLayer(_renderObject) {
-  let args = [`${_renderObject.layer.selectedElement.path}`,
+let layerOne = '';
+let layerTwo = '';
+
+function argsForLayer(_renderObject, _index) {
+  _index == 0 ? layerOne = _renderObject.layer.selectedElement.path : null;
+  console.log(layerOne, 'line 127');
+  _index  == 1 ? layerTwo = _renderObject.layer.selectedElement.path : null;
+  if (_index == 0) {
+    return {
+    layerOne : layerOne
+  }
+  if (_index == 1) {
+    return {
+    layerTwo : layerTwo
+  }
+  }
+  }
+};
+
+
+
+  let args = [`${layerOne}`,
     '-coalesce',
     'null:',
     '(',
-    './layers/Objects/alien_red#10.gif',
+    `${layerTwo}`,
     '-coalesce', ')',
     '-layers',
     'Composite',
     'newgif.gif'];
+
+
     let child = spawn('convert', args);
 
-    child.stdout.on('data', function(data) {
-      console.log('stdout: ' + data);
-      //Here is where the output goes
-    });
-
-    child.stderr.on('data', function(data) {
-      console.log('stderr: ' + data);
-      //Here is where the error output goes
-    });
-
-    child.on('close', function(code) {
-      console.log('closing code: ' + code);
-      //Here you can get the exit code of the script
-      process.exit();
-    });
-}
+    // child.stdout.on('data', function(data) {
+    //   console.log('stdout: ' + data);
+    //   //Here is where the output goes
+    // });
+    //
+    // child.stderr.on('data', function(data) {
+    //   console.log('stderr: ' + data);
+    //   //Here is where the error output goes
+    // });
+    //
+    // child.on('close', function(code) {
+    //   console.log('closing code: ' + code);
+    //   //Here you can get the exit code of the script
+    //   process.exit();
+    // });
 
 
 const genColor = () => {
@@ -414,12 +435,12 @@ const startCreating = async () => {
           }
           renderObjectArray.forEach((renderObject, index) => {
             // Add layer to imagemagick function
-            drawElement(
-              renderObject,
-              index,
-              layerConfigurations[layerConfigIndex].layersOrder.length
-            );
-            argsForLayer(renderObject)
+            // drawElement(
+            //   renderObject,
+            //   index,
+            //   layerConfigurations[layerConfigIndex].layersOrder.length
+            // );
+            argsForLayer(renderObject, index)
 
 
             if (gif.export) {
@@ -433,7 +454,22 @@ const startCreating = async () => {
             ? console.log("Editions left to create: ", abstractedIndexes)
             : null;
             // Write child
+            console.log(layerOne, layerTwo)
+            child.stdout.on('data', function(data) {
+              console.log('stdout: ' + data);
+              //Here is where the output goes
+            });
 
+            child.stderr.on('data', function(data) {
+              console.log('stderr: ' + data);
+              //Here is where the error output goes
+            });
+
+            child.on('close', function(code) {
+              console.log('closing code: ' + code);
+              //Here you can get the exit code of the script
+              process.exit();
+            });
 
           saveImage(abstractedIndexes[0]);
           addMetadata(newDna, abstractedIndexes[0]);
