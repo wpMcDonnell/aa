@@ -121,14 +121,15 @@ const saveImage = (_editionCount) => {
 
 let layerOne = '';
 let layerTwo = '';
+let layerThree = '';
 
 function argsForLayer(_renderObject, _index) {
 
   _index == 0 ? layerOne = _renderObject.layer.selectedElement.path : null;
-  console.log(layerOne, 'LayerOne line 127');
-  _index  == 1 ? layerTwo = _renderObject.layer.selectedElement.path : null;
-  console.log(layerTwo, 'layerTwo line 129');
 
+  _index  == 1 ? layerTwo = _renderObject.layer.selectedElement.path : null;
+
+  _index == 2 ? layerThree = _renderObject.layer.selectedElement.path : null;
 //   if (_index == 0) {
 //     console.log('say hey')
 //     return {
@@ -141,6 +142,7 @@ function argsForLayer(_renderObject, _index) {
 //     layerTwo : layerTwo
 //   }
 //   }
+addAttributes(_renderObject);
 };
 
     // child.stdout.on('data', function(data) {
@@ -176,7 +178,7 @@ const addMetadata = (_dna, _edition) => {
   let tempMetadata = {
     name: `${namePrefix} #${_edition}`,
     description: description,
-    image: `${baseUri}/${_edition}.png`,
+    image: `${baseUri}/${_edition}.gif`,
     dna: sha1(_dna),
     edition: _edition,
     date: dateTime,
@@ -452,9 +454,15 @@ const startCreating = async () => {
               '-coalesce', ')',
               '-layers',
               'Composite',
-              'newgif.gif'];
+              'null:',
+              '(',
+              layerThree,
+              '-coalesce', ')',
+              '-layers',
+              'Composite',
+              `${abstractedIndexes[0]}.gif`];
 
-            console.log(args)
+              console.log(args, 'line 464')
 
             let child = spawn('convert', args);
 
@@ -475,7 +483,7 @@ const startCreating = async () => {
               process.exit();
             });
 
-          saveImage(abstractedIndexes[0]);
+          // saveImage(abstractedIndexes[0]);
           addMetadata(newDna, abstractedIndexes[0]);
           saveMetaDataSingleFile(abstractedIndexes[0]);
           console.log(
