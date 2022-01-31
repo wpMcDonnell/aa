@@ -471,8 +471,8 @@ const startCreating = async () => {
               'Composite',
               '-layers',
               'optimize',
-              '-fuzz',
-              '7%',
+              // '-fuzz',
+              // '7%',
               `${abstractedIndexes[0]}.gif`];
 
               console.log(args, 'line 464')

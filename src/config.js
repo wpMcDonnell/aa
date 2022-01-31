@@ -6,7 +6,7 @@ const network = NETWORK.eth;
 
 // General metadata for Ethereum
 const namePrefix = "Polyhedrons";
-const description = "This is a description";
+const description = "There's your 20 billion Brett! Drink it in!";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
@@ -24,7 +24,7 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 1,
+    growEditionSizeTo: 2,
     layersOrder: [
       { name: "Background" },
       { name: "Bottoms" },
