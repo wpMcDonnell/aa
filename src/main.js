@@ -122,7 +122,8 @@ const saveImage = (_editionCount) => {
 let layerOne = '';
 let layerTwo = '';
 let layerThree = '';
-let layerFour = ';'
+let layerFour = '';
+let layerFive = '';
 
 function argsForLayer(_renderObject, _index) {
 
@@ -133,6 +134,9 @@ function argsForLayer(_renderObject, _index) {
   _index == 2 ? layerThree = _renderObject.layer.selectedElement.path : null;
 
   _index == 3 ? layerFour = _renderObject.layer.selectedElement.path : null;
+
+  _index == 4 ? layerFive = _renderObject.layer.selectedElement.path : null;
+
 //   if (_index == 0) {
 //     console.log('say hey')
 //     return {
@@ -468,11 +472,17 @@ const startCreating = async () => {
               '-coalesce', ')',
               '-layers',
               'Composite',
+              'null:',
+              '(',
+              layerFive,
+              '-coalesce', ')',
+              '-layers',
+              'Composite',
               '-layers',
               'optimize',
               // '-fuzz',
               // '7%',
-              `${abstractedIndexes[0]}.gif`];
+              `GIFS/${abstractedIndexes[0]}.gif`];
 
               console.log(args, 'line 464')
 
