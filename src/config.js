@@ -24,13 +24,13 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 10,
+    growEditionSizeTo: 2,
     layersOrder: [
-      { name: "Background" },
-      { name: "Bottom" },
+      { name: "Sector" },
+      { name: "Energy Source" },
       { name: "Hedron" },
-      { name: "Top" },
-      { name: "Peripheral" },
+      { name: "Kit" },
+      { name: "Stabilizers" },
     ],
   },
 ];
