@@ -5,7 +5,7 @@ const { NETWORK } = require(`${basePath}/constants/network.js`);
 const network = NETWORK.eth;
 
 // General metadata for Ethereum
-const namePrefix = "Polyhedrons";
+const namePrefix = "";
 const description = "There's your 20 billion Brett! Drink it in!";
 const baseUri = "ipfs://NewUriToReplace";
 
@@ -24,18 +24,29 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 2,
+    growEditionSizeTo: 5,
     layersOrder: [
       { name: "Sector" },
       { name: "Energy Source" },
       { name: "Hedron" },
-      { name: "Kit" },
+      { name: "Gen Unit" },
       { name: "Stabilizers" },
     ],
   },
+  {
+    growEditionSizeTo: 10,
+    layersOrder: [
+      { name: "Sector" },
+      { name: "Energy Source" },
+      { name: "Hedron" },
+      { name: "Nav Seeker" },
+      { name: "Stabilizers" },
+    ],
+  },
+
 ];
 
-const shuffleLayerConfigurations = false;
+const shuffleLayerConfigurations = true;
 
 const debugLogs = false;
 
