@@ -25,7 +25,10 @@
   "license": "MIT",
   "dependencies": {
     "canvas": "^2.8.0",
+    "eslint": "^8.7.0",
     "gif-encoder-2": "^1.0.5",
+    "giflib": "^0.1.7-beta",
+    "imagemagick": "^0.1.3",
     "sha1": "^1.1.1"
   }
 }
