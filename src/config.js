@@ -6,7 +6,7 @@ const network = NETWORK.eth;
 
 // General metadata for Ethereum
 const namePrefix = "";
-const description = "There's your 20 billion Brett! Drink it in!";
+const description = "There's your 20 billion Brent! Drink it in!";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
@@ -24,7 +24,7 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 5,
+    growEditionSizeTo: 1,
     layersOrder: [
       { name: "Sector" },
       { name: "Energy Source" },
@@ -34,7 +34,7 @@ const layerConfigurations = [
     ],
   },
   {
-    growEditionSizeTo: 10,
+    growEditionSizeTo: 2,
     layersOrder: [
       { name: "Sector" },
       { name: "Energy Source" },
