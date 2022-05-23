@@ -27,6 +27,7 @@ const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = format.smoothing;
 var metadataList = [];
+var jsonMetaDataList = [];
 var attributesList = [];
 var dnaList = new Set();
 const DNA_DELIMITER = "-";
@@ -110,14 +111,14 @@ const layersSetup = (layersOrder) => {
 
 
 
-const saveImage = (_editionCount) => {
-  fs.writeFileSync(
-    `${buildDir}/images/${_editionCount}.gif`,
-     canvas.toBuffer("image/png")
-    // this should be the new gif image created
-    /// needs to be a buffered data of the new gif file
-  );
-};
+// const saveImage = (_editionCount) => {
+//   fs.writeFileSync(
+//     `${buildDir}/images/${_editionCount}.gif`,
+//      canvas.toBuffer("image/png")
+//     // this should be the new gif image created
+//     /// needs to be a buffered data of the new gif file
+//   );
+// };
 
 let layerOne = '';
 let layerTwo = '';
@@ -181,44 +182,55 @@ const drawBackground = () => {
 };
 
 const addMetadata = (_dna, _edition) => {
-  let dateTime = Date.now();
+  // let dateTime = Date.now();
   let tempMetadata = {
-    name: `${namePrefix} #${_edition}`,
+    name: `${namePrefix}#${_edition}`,
     description: description,
     image: `${baseUri}/${_edition}.gif`,
-    dna: sha1(_dna),
+    // dna: sha1(_dna),
     edition: _edition,
-    date: dateTime,
+    // date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
   };
-  if (network == NETWORK.sol) {
-    tempMetadata = {
-      //Added metadata for solana
-      name: tempMetadata.name,
-      symbol: solanaMetadata.symbol,
-      description: tempMetadata.description,
-      //Added metadata for solana
-      seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
-      image: `image.png`,
-      //Added metadata for solana
-      external_url: solanaMetadata.external_url,
-      edition: _edition,
-      ...extraMetadata,
-      attributes: tempMetadata.attributes,
-      properties: {
-        files: [
-          {
-            uri: "image.png",
-            type: "image/png",
-          },
-        ],
-        category: "image",
-        creators: solanaMetadata.creators,
-      },
-    };
-  }
+  let writeJsonMetaData = {
+    name: `${namePrefix}#${_edition}`,
+    description: description,
+    image: `${baseUri}/${_edition}.gif`,
+    // dna: sha1(_dna),
+    // date: dateTime,
+    ...extraMetadata,
+    attributes: attributesList,
+  };
+
+  // if (network == NETWORK.sol) {
+  //   tempMetadata = {
+  //     //Added metadata for solana
+  //     name: tempMetadata.name,
+  //     symbol: solanaMetadata.symbol,
+  //     description: tempMetadata.description,
+  //     //Added metadata for solana
+  //     seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
+  //     image: `image.png`,
+  //     //Added metadata for solana
+  //     external_url: solanaMetadata.external_url,
+  //     edition: _edition,
+  //     ...extraMetadata,
+  //     attributes: tempMetadata.attributes,
+  //     properties: {
+  //       files: [
+  //         {
+  //           uri: "image.png",
+  //           type: "image/png",
+  //         },
+  //       ],
+  //       category: "image",
+  //       creators: solanaMetadata.creators,
+  //     },
+  //   };
+  // }
   metadataList.push(tempMetadata);
+  jsonMetaDataList.push(writeJsonMetaData);
   attributesList = [];
 };
 
@@ -353,15 +365,16 @@ const writeMetaData = (_data) => {
 };
 
 const saveMetaDataSingleFile = (_editionCount) => {
-  let metadata = metadataList.find((meta) => meta.edition == _editionCount);
+  let metadataIndex = metadataList.findIndex((meta) => meta.edition == _editionCount);
+  let metaDataToWrite = jsonMetaDataList[metadataIndex];
   debugLogs
     ? console.log(
-        `Writing metadata for ${_editionCount}: ${JSON.stringify(metadata)}`
+        `Writing metadata for ${_editionCount}: ${JSON.stringify(metaDataToWrite)}`
       )
     : null;
   fs.writeFileSync(
     `${buildDir}/json/${_editionCount}.json`,
-    JSON.stringify(metadata, null, 2)
+    JSON.stringify(metaDataToWrite, null, 2)
   );
 };
 
@@ -530,7 +543,7 @@ const startCreating = async () => {
     }
     layerConfigIndex++;
   }
-  writeMetaData(JSON.stringify(metadataList, null, 2));
+  writeMetaData(JSON.stringify(jsonMetaDataList, null, 2));
 };
 
 module.exports = { startCreating, buildSetup, getElements };
