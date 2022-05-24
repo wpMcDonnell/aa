@@ -6,7 +6,7 @@ const network = NETWORK.eth;
 
 // General metadata for Ethereum
 const namePrefix = "";
-const description = "There's your 20 billion Brent! Drink it in!";
+const description = "The Hedron Inter-Chain Company (THICC) is a 1k collection of custom made crystalized hedrons intended for far-out pfp use. They be in space cause space is tight. Maybe one of these web2 dino's will allow for animated pfps. That be cool, naw? Seems like, the future?";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
@@ -24,23 +24,32 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 25,
+    growEditionSizeTo: 2,
     layersOrder: [
       { name: "Sector" },
-      { name: "Energy Source" },
+      { name: "Power Cell" },
       { name: "Hedron" },
       { name: "Gen Unit" },
       { name: "Stabilizers" },
     ],
   },
   {
-    growEditionSizeTo: 50,
+    growEditionSizeTo: 4,
     layersOrder: [
       { name: "Sector" },
-      { name: "Energy Source" },
+      { name: "Power Cell" },
       { name: "Hedron" },
       { name: "Nav Seeker" },
       { name: "Stabilizers" },
+    ],
+  },
+  {
+    growEditionSizeTo: 6,
+    layersOrder: [
+      { name: "Sector" },
+      { name: "Power Cell" },
+      { name: "Hedron" },
+      { name: "Nav Seeker" },
     ],
   },
 
