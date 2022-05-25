@@ -153,6 +153,7 @@ const addMetadata = (_dna, _edition) => {
   let writeJsonMetaData = {
     name: `${namePrefix}#${_edition}`,
     description: description,
+    edition: _edition,
     image: `${baseUri}/${_edition}.gif`,
     ...extraMetadata,
     attributes: attributesList,

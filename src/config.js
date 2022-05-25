@@ -7,7 +7,7 @@ const network = NETWORK.eth;
 // General metadata for Ethereum
 const namePrefix = "";
 const description = "The Hedron Inter-Chain Company (THICC) is a 1k collection of custom made crystalized hedrons intended for far-out pfp use. They be in space cause space is tight. Maybe one of these web2 dino's will allow for animated pfps. That be cool, naw? Seems like, the future?";
-const baseUri = "ipfs://NewUriToReplace";
+const baseUri = "ipfs://something else";
 
 const solanaMetadata = {
   symbol: "YC",
