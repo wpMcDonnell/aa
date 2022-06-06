@@ -5,8 +5,8 @@ const { NETWORK } = require(`${basePath}/constants/network.js`);
 const network = NETWORK.eth;
 
 // General metadata for Ethereum
-const namePrefix = "";
-const description = "The Hedron Inter-Chain Company (THICC) is a 1k collection of custom made crystalized hedrons intended for far-out pfp use. They be in space cause space is tight. Maybe one of these web2 dino's will allow for animated pfps. That be cool, naw? Seems like, the future?";
+// const namePrefix = "";
+// const description = "The Hedron Inter-Chain Company (THICC) is a 1k collection of custom made crystalized hedrons intended for far-out pfp use. They be in space cause space is tight. Maybe one of these web2 dino's will allow for animated pfps. That be cool, naw? Seems like, the future?";
 const baseUri = "ipfs://QmeP8tWXApF3rQL9qxr6h5PSbb4BjCkyx5WdSJiYQW7NMY";
 
 const solanaMetadata = {
@@ -43,16 +43,6 @@ const layerConfigurations = [
       { name: "Stabilizers" },
     ],
   },
-  {
-    growEditionSizeTo: 6,
-    layersOrder: [
-      { name: "Sector" },
-      { name: "Power Cell" },
-      { name: "Hedron" },
-      { name: "Nav Seeker" },
-    ],
-  },
-
 ];
 
 const shuffleLayerConfigurations = true;
@@ -121,7 +111,7 @@ const preview_gif = {
 module.exports = {
   format,
   baseUri,
-  description,
+  // description,
   background,
   uniqueDnaTorrance,
   layerConfigurations,
@@ -132,7 +122,7 @@ module.exports = {
   extraMetadata,
   pixelFormat,
   text,
-  namePrefix,
+  // namePrefix,
   network,
   solanaMetadata,
   gif,

@@ -143,16 +143,16 @@ const drawBackground = () => {
 
 const addMetadata = (_dna, _edition) => {
   let tempMetadata = {
-    name: `${namePrefix}#${_edition}`,
-    description: description,
+    // name: `${namePrefix}#${_edition}`,
+    // description: description,
     image: `${baseUri}/${_edition}.gif`,
     edition: _edition,
     ...extraMetadata,
     attributes: attributesList,
   };
   let writeJsonMetaData = {
-    name: `${namePrefix}#${_edition}`,
-    description: description,
+    // name: `${namePrefix}#${_edition}`,
+    // description: description,
     edition: _edition,
     image: `${baseUri}/${_edition}.gif`,
     ...extraMetadata,
