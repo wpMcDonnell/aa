@@ -20,9 +20,8 @@ data.forEach((item) => {
     item.description = description;
     item.creators = solanaMetadata.creators;
   } else {
-    item.name = `${namePrefix} #${item.edition}`;
     item.description = description;
-    item.image = `${baseUri}/${item.edition}.png`;
+    item.image = `${baseUri}/${item.edition}.gif`;
   }
   fs.writeFileSync(
     `${basePath}/build/json/${item.edition}.json`,

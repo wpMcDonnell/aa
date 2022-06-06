@@ -109,17 +109,6 @@ const layersSetup = (layersOrder) => {
   return layers;
 };
 
-
-
-// const saveImage = (_editionCount) => {
-//   fs.writeFileSync(
-//     `${buildDir}/images/${_editionCount}.gif`,
-//      canvas.toBuffer("image/png")
-//     // this should be the new gif image created
-//     /// needs to be a buffered data of the new gif file
-//   );
-// };
-
 let layerOne = '';
 let layerTwo = '';
 let layerThree = '';
@@ -138,37 +127,8 @@ function argsForLayer(_renderObject, _index) {
 
   _index == 4 ? layerFive = _renderObject.layer.selectedElement.path : null;
 
-//   if (_index == 0) {
-//     console.log('say hey')
-//     return {
-//     layerOne : layerOne
-//   }
-// }
-//   if (_index == 1) {
-//     console.log('say ho')
-//     return {
-//     layerTwo : layerTwo
-//   }
-//   }
 addAttributes(_renderObject);
 };
-
-    // child.stdout.on('data', function(data) {
-    //   console.log('stdout: ' + data);
-    //   //Here is where the output goes
-    // });
-    //
-    // child.stderr.on('data', function(data) {
-    //   console.log('stderr: ' + data);
-    //   //Here is where the error output goes
-    // });
-    //
-    // child.on('close', function(code) {
-    //   console.log('closing code: ' + code);
-    //   //Here you can get the exit code of the script
-    //   process.exit();
-    // });
-
 
 const genColor = () => {
   let hue = Math.floor(Math.random() * 360);
@@ -182,53 +142,23 @@ const drawBackground = () => {
 };
 
 const addMetadata = (_dna, _edition) => {
-  // let dateTime = Date.now();
   let tempMetadata = {
-    name: `${namePrefix}#${_edition}`,
-    description: description,
+    // name: `${namePrefix}#${_edition}`,
+    // description: description,
     image: `${baseUri}/${_edition}.gif`,
-    // dna: sha1(_dna),
     edition: _edition,
-    // date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
   };
   let writeJsonMetaData = {
-    name: `${namePrefix}#${_edition}`,
-    description: description,
+    // name: `${namePrefix}#${_edition}`,
+    // description: description,
+    edition: _edition,
     image: `${baseUri}/${_edition}.gif`,
-    // dna: sha1(_dna),
-    // date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
   };
 
-  // if (network == NETWORK.sol) {
-  //   tempMetadata = {
-  //     //Added metadata for solana
-  //     name: tempMetadata.name,
-  //     symbol: solanaMetadata.symbol,
-  //     description: tempMetadata.description,
-  //     //Added metadata for solana
-  //     seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
-  //     image: `image.png`,
-  //     //Added metadata for solana
-  //     external_url: solanaMetadata.external_url,
-  //     edition: _edition,
-  //     ...extraMetadata,
-  //     attributes: tempMetadata.attributes,
-  //     properties: {
-  //       files: [
-  //         {
-  //           uri: "image.png",
-  //           type: "image/png",
-  //         },
-  //       ],
-  //       category: "image",
-  //       creators: solanaMetadata.creators,
-  //     },
-  //   };
-  // }
   metadataList.push(tempMetadata);
   jsonMetaDataList.push(writeJsonMetaData);
   attributesList = [];
@@ -255,25 +185,6 @@ const addText = (_sig, x, y, size) => {
   ctx.textBaseline = text.baseline;
   ctx.textAlign = text.align;
   ctx.fillText(_sig, x, y);
-};
-
-const drawElement = (_renderObject, _index, _layersLen) => {
-  ctx.globalAlpha = _renderObject.layer.opacity;
-  ctx.globalCompositeOperation = _renderObject.layer.blend;
-  text.only
-    ? addText(
-        `${_renderObject.layer.name}${text.spacer}${_renderObject.layer.selectedElement.name}`,
-        text.xGap,
-        text.yGap * (_index + 1),
-        text.size
-      )
-    :
-
-    // Creat multiple args to feed in
-    console.log(
-        _renderObject.layer.selectedElement.path);
-
-  addAttributes(_renderObject);
 };
 
 const constructLayerToDna = (_dna = "", _layers = []) => {
@@ -445,12 +356,6 @@ const startCreating = async () => {
             drawBackground();
           }
           renderObjectArray.forEach((renderObject, index) => {
-            // Add layer to imagemagick function
-            // drawElement(
-            //   renderObject,
-            //   index,
-            //   layerConfigurations[layerConfigIndex].layersOrder.length
-            // );
             argsForLayer(renderObject, index)
 
 
@@ -501,15 +406,14 @@ const startCreating = async () => {
 
             let child = spawn('convert', args);
 
-
             child.stdout.on('data', function(data) {
-              console.log('stdout: ' + data);
               //Here is where the output goes
+              console.log('stdout: ' + data);
             });
 
             child.stderr.on('data', function(data) {
-              console.log('stderr: ' + data);
               //Here is where the error output goes
+              console.log('stderr: ' + data);
             });
 
             child.on('close', function(code) {
