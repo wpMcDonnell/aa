@@ -24,9 +24,9 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 2,
+    growEditionSizeTo: 1,
     layersOrder: [
-      { name: "Sector" },
+      { name: "Graben" },
       { name: "Power Cell" },
       { name: "Hedron" },
       { name: "Gen Unit" },
@@ -34,7 +34,7 @@ const layerConfigurations = [
     ],
   },
   {
-    growEditionSizeTo: 4,
+    growEditionSizeTo: 2,
     layersOrder: [
       { name: "Sector" },
       { name: "Power Cell" },
